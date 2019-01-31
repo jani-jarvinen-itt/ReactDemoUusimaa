@@ -14,7 +14,7 @@ class Taulukko extends Component {
         console.log("Taulukko.componentDidMount");
         let komponentinTila = this;
 
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
+        fetch('https://localhost:44331/api/v1/customers/')
         .then(function(response) {
             return response.json();
         })
@@ -45,26 +45,32 @@ class Taulukko extends Component {
 
         let d = this.state.data;
 
+        let rivit = [];
+        for (var i = 0; i < d.length; i++) {
+            let a = d[i];
+            rivit.push(<tr>
+                <th scope="row">{a.customerId}</th>
+                <td>{a.companyName}</td>
+                <td>{a.city}</td>
+                <td>{a.country}</td>
+            </tr>);
+          }
+
+
         return (
             <table className="table">
                 <thead>
                 <tr>
-                    <th scope="col">User Id</th>
-                    <th scope="col">Id</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Completed</th>
+                    <th scope="col">Customer Id</th>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Country</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">{d.userId}</th>
-                    <td>{d.id}</td>
-                    <td>{d.title}</td>
-                    <td>{d.completed}</td>
-                </tr>
-                
+                    {rivit}
                 </tbody>
-        </table>
+            </table>
         );
     }
   }

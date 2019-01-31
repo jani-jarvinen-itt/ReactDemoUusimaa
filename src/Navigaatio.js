@@ -20,7 +20,7 @@ class Navigaatio extends Component {
                 <a className="nav-link" href="testi">Pricing</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link disabled" href="testi" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a className="nav-link disabled" href="testi" tabIndex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
             </div>
