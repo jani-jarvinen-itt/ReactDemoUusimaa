@@ -1,0 +1,16 @@
+<asiakkaat>
+
+    <asiakas />
+    <asiakas></asiakas>
+
+    <asiakas>
+        <nimi>Firma Oy</nimi>
+        <yhteyshenkilö>Matti Möttönen</yhteyshenkilö>
+    </asiakas>
+
+    <asiakas>
+        <nimi>Toinen firma Oy</nimi>
+        <yhteyshenkilö>Teppo T.</yhteyshenkilö>
+    </asiakas>
+
+</asiakkaat>

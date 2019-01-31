@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Taulukko from './Taulukko';
+import Navigaatio from './Navigaatio';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Navigaatio />
+
+        <h1>Tämä on App-komponentti</h1>
+        <p>Perustekstiä.</p>
+
+        <Taulukko />
       </div>
     );
   }
