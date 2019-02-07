@@ -7,6 +7,9 @@ class Kortti extends Component {
         console.log("Kortti.constructor");
 
         this.state = { ladattu: false, valittu: 0, data: null };
+
+        this.siirryEdelliseen = this.siirryEdelliseen.bind(this);
+        this.siirrySeuraavaan = this.siirrySeuraavaan.bind(this);
     }
 
     componentDidMount() {
@@ -15,57 +18,82 @@ class Kortti extends Component {
         let komponentinTila = this;
 
         fetch('https://localhost:44331/api/v1/customers/')
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(myJson) {
-            console.log("JSON-data on ladattu!");
-            console.log(JSON.stringify(myJson));
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log("JSON-data on ladattu!");
+                console.log(JSON.stringify(myJson));
 
-            console.log("Kutsutaan setState()-rutiinia.");
-            komponentinTila.setState({ ladattu: true, data: myJson });
-            console.log("setState()-rutiinia on kutsuttu.");
-        });
+                console.log("Kutsutaan setState()-rutiinia.");
+                komponentinTila.setState({ ladattu: true, data: myJson });
+                console.log("setState()-rutiinia on kutsuttu.");
+            });
     }
 
-  render() {
+    siirryEdelliseen() {
+        console.log("Kortti.siirryEdelliseen");
+        let nykyinen = this.state.valittu;
 
-    console.log("Kortti.render");
+        if (nykyinen > 0) {
+            let uusi = nykyinen - 1;
 
-    if (this.state.ladattu === false) {
-        return (
-            <div>
-                <p>Ladataan...</p>
-            </div>
-        );
+            this.setState({ valittu: uusi });
+
+            /*
+            this.setState({ ladattu: this.state.ladattu,
+                valittu: uusi,
+                data: this.state.data });
+            */
+        }
     }
-    else {
 
-        let d = this.state.data;
+    siirrySeuraavaan() {
+        console.log("Kortti.siirrySeuraavaan");
+        let nykyinen = this.state.valittu;
+        let lkm = this.state.data.length;
+        if (nykyinen < (lkm - 1)) {
 
-        let rivit = [];
-        for (var i = 0; i < d.length; i++) {
-            let a = d[i];
-            rivit.push(<tr>
-                <th scope="row">{a.customerId}</th>
-                <td>{a.companyName}</td>
-                <td>{a.city}</td>
-                <td>{a.country}</td>
-            </tr>);
-          }
+            let uusi = nykyinen + 1;
+            this.setState({ ...this.state, valittu: uusi });
+        }
+    }
 
 
-        return (
-            <div className="card" style={{ width: "18rem"}}>
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    render() {
+
+        console.log("Kortti.render");
+
+        if (this.state.ladattu === false) {
+            return (
+                <div>
+                    <p>Ladataan...</p>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+
+            let a = this.state.data[this.state.valittu];
+            return (
+                <div>
+                    <div className="card" style={{ width: "18rem" }}>
+                        <div className="card-body">
+                            <h5 className="card-title">{a.companyName}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">{a.customerId} {a.country}</h6>
+                            <p className="card-text">{a.contactName}</p>
+                        </div>
+                    </div>
+                    <button className="btn btn-info" onClick={this.siirryEdelliseen}>Edellinen</button>
+
+                    {/*
+                    <button className="btn btn-info" onClick={() => this.siirryEdelliseen}>Edellinen</button>
+                    */}
+
+                    <button className="btn btn-info" onClick={this.siirrySeuraavaan}>Seuraava</button>
+                </div>
+            );
+        }
     }
-  }
 }
 
 export default Kortti;
