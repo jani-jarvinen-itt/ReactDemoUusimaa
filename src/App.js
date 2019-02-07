@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Taulukko from './Taulukko';
 import Navigaatio from './Navigaatio';
+import Kortti from './Kortti';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <h1>Tämä on App-komponentti</h1>
         <p>Perustekstiä.</p>
 
-        <Taulukko />
+        <Kortti />
       </div>
     );
   }
